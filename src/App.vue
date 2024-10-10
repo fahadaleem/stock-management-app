@@ -2,5 +2,9 @@
   <router-view></router-view>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: "c-app",
+};
+</script>
 <style></style>
