@@ -221,6 +221,7 @@ export default {
               type: "success",
               message: res.message,
             });
+            self.$router.push("/delivery");
             self.resetFormState();
           }
         })
