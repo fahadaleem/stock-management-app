@@ -2,7 +2,7 @@
   <div class="c-search-with-dropdown">
     <div>
       <div class="flex gap-x-4">
-        <h2 class="font-medium my-2" v-if="label">{{ label }}:</h2>
+        <h2 class="font-medium my-2 text-white" v-if="label">{{ label }}:</h2>
         <div class="w-full relative">
           <!-- Input field for customer search -->
           <input

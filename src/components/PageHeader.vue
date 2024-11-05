@@ -1,19 +1,17 @@
 <template>
-  <div
-    class="c-page-header flex justify-between px-8 h-20 items-center border-b-2"
-  >
-    <h1 class="text-2xl font-bold">{{ pageName }}</h1>
-    <div class="flex gap-x-2">
-      <button
-        class="p-2 rounded bg-secondary font-medium w-24"
-        @click="onCancel"
-      >
-        Cancel
+  <div class="c-page-header flex bg-primary justify-between px-8 h-20 items-center">
+    <div class="flex justify-between items-center">
+      <button class="mx-2 text-xl hover:bg-slate-200 h-12 w-12 rounded-full" @click="onNavigateToDashboard">
+        <i class="fa-solid fa-arrow-left"></i>
       </button>
+      <h1 class="text-2xl font-bold">{{ pageName }}</h1>
+    </div>
+    <div class="flex gap-x-2">
+      <button class="p-2 rounded bg-yellow-100 font-medium w-24" @click="onCancel">Cancel</button>
       <button
         :disabled="!isValid || isLoading"
         @click="onSave"
-        class="p-2 rounded bg-primary font-medium w-24 text-slate-50 disabled:bg-slate-300"
+        class="p-2 rounded bg-emerald-700 font-medium w-24 text-slate-50 disabled:bg-slate-300"
       >
         <div role="status" v-if="isLoading">
           <svg
@@ -55,6 +53,10 @@ export default {
     onSave() {
       const self = this;
       self.$emit("onSave");
+    },
+    onNavigateToDashboard() {
+      const self = this;
+      self.$router.push("/");
     },
   },
 };

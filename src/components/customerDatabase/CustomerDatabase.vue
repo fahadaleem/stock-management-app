@@ -1,57 +1,61 @@
 <template>
   <div class="c-customer-database">
     <!-- header -->
-    <div class="c-page-header-for-listing flex justify-between px-8 h-20 items-center border-b-2">
-      <h1 class="text-2xl font-bold">Customer Database</h1>
-      <div class="flex gap-x-2">
-        <button class="p-2 rounded border-b-2 font-medium" @click="onClickAddNewCustomer">
-          <i class="fa-solid fa-plus"></i>
-          Add new customer
-        </button>
-        <button class="p-2 rounded border-b-2 font-medium">
-          <i class="fa-solid fa-download"></i>
-          Export as CSV
-        </button>
-      </div>
-    </div>
+    <c-page-header-for-listing page-title="Customer Database">
+      <template v-slot:actions>
+        <div class="flex gap-x-2">
+          <button class="p-2 rounded border-b-2 font-medium" @click="onClickAddNewCustomer">
+            <i class="fa-solid fa-plus"></i>
+            Add new customer
+          </button>
+        </div>
+      </template>
+    </c-page-header-for-listing>
+
     <!-- table -->
     <div class="p-8">
-      <div>
+      <!-- TODO -->
+      <!-- <div>
         <input type="text" class="w-full p-2 rounded border-2 font-medium" required placeholder="Search customer" />
-      </div>
+      </div> -->
       <div class="my-4 border-2 rounded">
         <table class="w-full">
-          <thead class="text-gray-700 uppercase bg-gray-200">
+          <thead class="text-gray-700 uppercase bg-primary">
             <tr>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">S.NO</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Name</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Email</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Phone No.</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">City</th>
+              <th class="px-6 py-3 font-medium text-gray-900 text-left">Company Reg No.</th>
+              <th class="px-6 py-3 font-medium text-gray-900 text-left">Address</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(customer, index) in customers" :key="customer.email">
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-white text-left">
                 {{ (currentPage - 1) * ITEMS_PER_PAGE + index + 1 }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-white text-left">
                 {{ customer.name }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-white text-left">
                 {{ customer.email }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-white text-left">
                 {{ customer.phone_no }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-white text-left">
                 {{ customer.city || "-" }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900">
-                <button class="text-xl">
-                  <i class="fa-regular fa-eye"></i>
-                </button>
+              <td class="px-6 py-4 font-medium text-white text-left">
+                {{ customer.customer_registeration_number || "-" }}
+              </td>
+              <td class="px-6 py-4 font-medium text-white text-left">
+                {{ customer.address || "-" }}
+              </td>
+              <td class="px-6 py-4 font-medium text-white">
                 <button class="mx-2 text-xl" @click="onDeleteCustomer(customer._id)">
                   <i class="fa-solid fa-trash"></i>
                 </button>
@@ -72,10 +76,12 @@
 import { apiUtilServices } from "../../services/apiUtilServices";
 
 import Pagination from "../dataGrid.vue/Pagination.vue";
+import PageHeaderForListing from "../PageHeaderForListing.vue";
 export default {
   name: "c-customer-database",
   components: {
     cPagination: Pagination,
+    cPageHeaderForListing: PageHeaderForListing,
   },
   data() {
     return {

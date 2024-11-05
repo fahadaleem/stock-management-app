@@ -7,25 +7,27 @@
             <i class="fa-solid fa-plus"></i>
             Create Delivery
           </button>
-          <button class="p-2 rounded border-b-2 font-medium">
+          <!-- TODO: will add it later -->
+          <!-- <button class="p-2 rounded border-b-2 font-medium">
             <i class="fa-solid fa-download"></i>
             Export as CSV
-          </button>
+          </button> -->
         </div>
       </template>
     </c-page-header-for-listing>
     <div class="p-8">
-      <div>
+      <!-- TODO -->
+      <!-- <div>
         <input
           type="text"
           class="w-full p-2 rounded border-2 font-medium"
           required
           placeholder="Search by invoice id"
         />
-      </div>
+      </div> -->
       <div class="my-4">
         <table class="w-full border-2 rounded">
-          <thead class="text-gray-700 uppercase bg-gray-200">
+          <thead class="text-gray-700 uppercase bg-primary">
             <tr>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">S.No</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Customer Name</th>
@@ -36,20 +38,20 @@
           </thead>
           <tbody>
             <tr v-for="(delivery, index) in deliveries" :key="index">
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ index + 1 }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ (delivery.customer && delivery.customer.name) || "-" }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ delivery.amount }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ formatDate(delivery.created_at) }}
               </td>
               <td class="py-4 font-medium text-gray-900 w-4">
-                <c-grid-actions :actions="gridActions"></c-grid-actions>
+                <c-grid-actions :actions="getGridActions(delivery)"></c-grid-actions>
               </td>
             </tr>
           </tbody>
@@ -112,6 +114,23 @@ export default {
     },
     formatDate(date) {
       return new Date(date).toDateString(); // Format the date as desired
+    },
+    getGridActions(delivery) {
+      const self = this;
+      return [
+        {
+          text: "Delete",
+          handler: () => self.onDelete(delivery),
+        },
+        {
+          text: "View",
+          handler: () => self.onViewDeliveryNote(delivery),
+        },
+      ];
+    },
+    onViewDeliveryNote(delivery) {
+      const self = this;
+      self.$router.push(`/delivery/${delivery._id}`);
     },
   },
 };

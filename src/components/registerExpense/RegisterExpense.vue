@@ -6,11 +6,11 @@
       :is-loading="isLoading"
       @onSave="onSave"
     ></c-page-header>
-    <div class="w-[50%] my-16 flex flex-col justify-center mx-auto">
-      <div class="p-4 h-full">
+    <div class="w-[50%] my-8 flex flex-col justify-center mx-auto">
+      <div class="p-x-4 h-full">
         <div class="flex flex-col gap-y-4">
           <div>
-            <h2 class="font-semibold text-xl grow">Date of Expense</h2>
+            <h2 class="text-xl grow text-white">Date of Expense</h2>
             <input
               type="date"
               v-model="dateOfExpense"
@@ -18,7 +18,7 @@
             />
           </div>
           <div class="">
-            <h2 class="font-semibold text-xl grow">Date of Entry</h2>
+            <h2 class="text-xl grow text-white">Date of Entry</h2>
             <input
               type="date"
               v-model="dateOfEntry"
@@ -26,7 +26,7 @@
             />
           </div>
           <div>
-            <h2 class="font-semibold text-xl grow">Expense Amount</h2>
+            <h2 class="text-xl grow text-white">Expense Amount</h2>
             <input
               type="number"
               v-model="expenseAmount"
@@ -36,7 +36,7 @@
             />
           </div>
           <div>
-            <h2 class="font-semibold text-xl grow">Expense Reason</h2>
+            <h2 class="text-xl grow text-white">Expense Reason</h2>
             <input
               type="text"
               v-model="expenseReason"
@@ -48,15 +48,15 @@
             /> -->
           </div>
           <div>
-            <h2 class="font-semibold text-xl">Additional Info</h2>
+            <h2 class="text-xl text-white">Additional Info</h2>
             <textarea
               rows="5"
               v-model="additionalInfo"
-              class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+              class="w-full p-2 my-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
             />
           </div>
           <div>
-            <h2 class="font-semibold text-xl grow">Add Supported Documents</h2>
+            <h2 class="text-xl grow text-white mb-2">Add Supported Documents</h2>
             <c-file-uploader @onChangeSupportedDocs="onChangeSupportedDocs"></c-file-uploader>
           </div>
         </div>
@@ -135,6 +135,7 @@ export default {
               type: "success",
               message: res.message,
             });
+            self.$router.push("/");
           }
         })
         .catch((err) => {

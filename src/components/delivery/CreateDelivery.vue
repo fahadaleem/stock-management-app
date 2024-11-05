@@ -11,7 +11,7 @@
       </div>
       <div class="my-4" v-if="selectedCustomer">
         <table class="w-full">
-          <thead class="text-gray-700 uppercase bg-gray-200">
+          <thead class="text-gray-800 uppercase bg-primary">
             <tr>
               <th class="py-4">Product</th>
               <th class="py-4">Cost Price</th>
@@ -29,7 +29,7 @@
                 ></c-search-with-dropdown>
               </td>
               <td class="p-4 text-center">
-                <h2 class="font-semibold">{{ item.costPrice }}</h2>
+                <h2 class="font-semibold text-white">{{ item.costPrice }}</h2>
               </td>
               <td class="p-4">
                 <input
@@ -46,7 +46,7 @@
                 />
               </td>
               <td class="p-4 text-center">
-                <h2 class="font-semibold">
+                <h2 class="font-semibold text-white">
                   {{ item.totalPrice }}
                 </h2>
               </td>
@@ -160,7 +160,7 @@ export default {
     getAllCustomers() {
       const self = this;
       apiUtilServices
-        .getRequest("/customers")
+        .getRequest("/customers?limit=-1")
         .then((res) => {
           if (res.status === "success") {
             self.customers = (res.data.customers || []).map((customer) => ({
@@ -212,7 +212,6 @@ export default {
         }),
         amount: self.calculateTotal(),
       };
-
       apiUtilServices
         .postRequest("/deliveries", payload)
         .then((res) => {

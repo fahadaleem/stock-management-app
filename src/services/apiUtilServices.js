@@ -17,6 +17,10 @@ export const apiUtilServices = (() => {
     return axios.delete(`${url}${endpoint}`).then((res) => res.data);
   }
 
+  function putRequest(endpoint, payload) {
+    return axios.put(`${url}${endpoint}`, payload).then((res) => res.data);
+  }
+
   async function uploadFileRequest(file) {
     // Create a storage reference
     const storageRef = ref(storage, `uploads/${file.name}`);
@@ -40,6 +44,7 @@ export const apiUtilServices = (() => {
   return {
     getRequest,
     postRequest,
+    putRequest,
     deleteRequest,
     uploadFileRequest,
   };

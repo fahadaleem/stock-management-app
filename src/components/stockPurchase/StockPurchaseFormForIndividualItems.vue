@@ -3,7 +3,7 @@
     <div class="w-[50%] mx-auto my-16">
       <form @submit.prevent="handleSubmit" class="flex flex-col gap-y-4">
         <div>
-          <h2 class="font-semibold text-xl mb-2">Date of Purchase</h2>
+          <h2 class="text-xl mb-2 text-white">Date of Purchase</h2>
           <input
             type="date"
             v-model="purchaseDate"
@@ -12,7 +12,7 @@
           />
         </div>
         <div>
-          <h2 class="font-semibold text-xl mb-2">Method of Payment</h2>
+          <h2 class="text-xl mb-2 text-white">Method of Payment</h2>
           <select
             v-model="paymentMethod"
             @change="onChangePurchasDetails"
@@ -21,12 +21,13 @@
             <option value="cash">Cash</option>
             <option value="card">Card</option>
             <option value="cheque">Cheque</option>
+            <option value="credit">Credit</option>
           </select>
         </div>
         <div>
-          <h2 class="font-semibold text-xl mb-2">Items</h2>
+          <h2 class="text-xl mb-2 text-white">Items</h2>
           <div
-            class="bg-slate-200 rounded py-8 p-4 relative"
+            class="bg-primary rounded py-8 p-4 relative"
             :class="{ 'mb-4': items.length !== index - 1 }"
             v-for="(item, index) in items"
             :key="index"
@@ -86,14 +87,14 @@
           <button
             type="button"
             @change="onChangePurchasDetails"
-            class="border rounded border-slate-600 p-2 font-medium w-full"
+            class="border rounded bg-primary p-2 font-medium w-full"
             @click="addNewItem"
           >
             Add new item
           </button>
         </div>
         <div>
-          <h2 class="font-semibold text-xl mb-2">Add Supported Documents</h2>
+          <h2 class="text-white text-xl mb-2">Add Supported Documents</h2>
           <c-file-uploader @onChangeSupportedDocs="onChangeSupportedDocs"></c-file-uploader>
         </div>
       </form>

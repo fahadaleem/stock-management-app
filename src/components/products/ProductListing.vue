@@ -2,12 +2,13 @@
   <div class="c-product-listing">
     <c-page-header-for-listing page-title="Products"></c-page-header-for-listing>
     <div class="p-8">
-      <div>
+      <!-- TODO -->
+      <!-- <div>
         <input type="text" class="w-full p-2 rounded border-2 font-medium" required placeholder="Search" />
-      </div>
+      </div> -->
       <div class="my-4">
         <table class="w-full border-2 rounded">
-          <thead class="text-gray-700 uppercase bg-gray-200">
+          <thead class="text-gray-800 uppercase bg-primary">
             <tr>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Id</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Name</th>
@@ -19,26 +20,26 @@
           </thead>
           <tbody>
             <tr v-for="(product, index) in products" :key="index">
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ index + 1 }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ product.name || "-" }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ product.cost_price }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ product.min_market_value }}
               </td>
-              <td class="px-6 py-4 font-medium text-gray-900 text-left">
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ product.quantity }}
               </td>
               <td class="py-4 font-medium text-gray-900">
-                <button class="text-xl">
+                <!-- <button class="text-xl">
                   <i class="fa-regular fa-eye"></i>
-                </button>
-                <button class="mx-2 text-xl" @click="onDeleteProduct(product._id)">
+                </button> -->
+                <button class="mx-2 text-xl text-white" @click="onDeleteProduct(product._id)">
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </td>

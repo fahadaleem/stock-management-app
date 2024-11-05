@@ -1,10 +1,7 @@
 <template>
   <div class="c-purchase-type-tabs">
     <div class="flex justify-between">
-      <div
-        class="w-full p-4"
-        :class="getTabClass(purchaseTypes.INDIVIDUAL_ITEMS)"
-      >
+      <div class="w-full p-4" :class="getTabClass(purchaseTypes.INDIVIDUAL_ITEMS)">
         <button
           class="text-center w-full font-medium text-xl"
           @click="onChangePurchaseType(purchaseTypes.INDIVIDUAL_ITEMS)"
@@ -43,9 +40,7 @@ export default {
     },
     getTabClass(type) {
       const self = this;
-      return self.selectedPurchaseType === type
-        ? "bg-primary text-white"
-        : "bg-secondary text-black";
+      return self.selectedPurchaseType === type ? "bg-black-800 text-white" : "bg-primary text-black";
     },
   },
 };
