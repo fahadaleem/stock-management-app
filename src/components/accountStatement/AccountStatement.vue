@@ -41,6 +41,21 @@
                   ></i
                 ></span>
                 {{ transaction.description }}
+                <template v-if="transaction.supported_documents && transaction.supported_documents.length > 0">
+                  <a
+                    class="ml-2"
+                    v-for="(document, key) in transaction.supported_documents"
+                    :key="key"
+                    :href="document"
+                  >
+                    <i class="fa-solid fa-paperclip text-gray-300"></i>
+                  </a>
+                </template>
+                <template v-else-if="transaction.type === 'income'">
+                  <button class="ml-2" @click="onClickAddSupportedDocsModal(transaction)">
+                    <i class="fa-solid fa-pen-to-square text-gray-300"></i>
+                  </button>
+                </template>
               </p>
               <div>
                 <p class="font-semibold">AED {{ transaction.amount }}</p>
@@ -51,12 +66,34 @@
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <div v-if="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+      <div class="bg-white rounded-lg shadow-lg p-6 w-1/3">
+        <h2 class="text-lg font-semibold mb-4">Upload Support Documents</h2>
+
+        <!-- Modal Content -->
+        <div>
+          <c-file-uploader @onChangeSupportedDocs="onChangeSupportedDocs"></c-file-uploader>
+        </div>
+        <!-- Close Button -->
+        <button @click="isModalOpen = false" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          Close
+        </button>
+        <button
+          @click="onSaveSupportedDocuments(editableTransaction)"
+          class="mt-4 ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Save
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { apiUtilServices } from "../../services/apiUtilServices";
 import PageHeaderForListing from "../PageHeaderForListing.vue";
+import FileUploader from "../FileUploader.vue";
 
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -65,6 +102,7 @@ export default {
   name: "c-account-statement",
   components: {
     cPageHeaderForListing: PageHeaderForListing,
+    cFileUploader: FileUploader,
   },
   data() {
     const self = this;
@@ -72,6 +110,9 @@ export default {
       totalIncome: 0,
       totalExpense: 0,
       transactions: [],
+      isModalOpen: false,
+      supportedDocuments: [],
+      editableTransaction: null,
     };
   },
   computed: {
@@ -135,6 +176,45 @@ export default {
     onDownloadPdf() {
       const self = this;
       self.generatePDF();
+    },
+    onChangeSupportedDocs(files) {
+      const self = this;
+      self.supportedDocuments = [...files];
+    },
+    onClickAddSupportedDocsModal(transaction) {
+      const self = this;
+      self.isModalOpen = true;
+      self.editableTransaction = transaction;
+    },
+    async onSaveSupportedDocuments(transaction) {
+      const self = this;
+
+      let documentUrls = [];
+      if (self.supportedDocuments.length) {
+        const promises = [];
+        self.supportedDocuments.forEach((document) => {
+          promises.push(apiUtilServices.uploadFileRequest(document));
+        });
+
+        documentUrls = await Promise.all(promises);
+      }
+
+      const payload = {
+        ...transaction,
+        supported_documents: documentUrls,
+      };
+
+      apiUtilServices.putRequest(`/accounts/${transaction._id}`, payload).then((res) => {
+        if (res.status === "success") {
+          self.isModalOpen = false;
+          self.$toast.open({
+            type: "success",
+            message: "Documents uploaded successfully.",
+          });
+          self.initialize();
+          self.editableTransaction = null;
+        }
+      });
     },
   },
 };

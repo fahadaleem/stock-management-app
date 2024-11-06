@@ -71,6 +71,7 @@ export default {
           min_market_value: item.minMarketValue,
           name: item.name,
           quantity: item.quantity,
+          purchase_date: purchaseDate,
         };
       });
       if (supportedDocuments.length) {

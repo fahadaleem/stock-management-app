@@ -15,6 +15,7 @@
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Cost Price</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Min. Market Value</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left">Available Quantity</th>
+              <th class="px-6 py-3 font-medium text-gray-900 text-left">Purchase Date</th>
               <th class="px-6 py-3 font-medium text-gray-900 text-left"></th>
             </tr>
           </thead>
@@ -34,6 +35,9 @@
               </td>
               <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
                 {{ product.quantity }}
+              </td>
+              <td class="px-6 py-4 font-medium text-gray-900 text-left text-white">
+                {{ (product.purchase_date && getFormattedDate(product.purchase_date)) || "-" }}
               </td>
               <td class="py-4 font-medium text-gray-900">
                 <!-- <button class="text-xl">
@@ -123,6 +127,14 @@ export default {
             message: (err.response && err.response.data && err.response.data.message) || "Internal server error",
           });
         });
+    },
+    getFormattedDate(date) {
+      date = new Date(date);
+      // Format the date as YYYY-MM-DD
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${day}-${month}-${year}`;
     },
   },
 };
