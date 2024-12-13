@@ -132,6 +132,26 @@ export default {
       const self = this;
       self.$router.push(`/delivery/${delivery._id}`);
     },
+    onDelete(delivery) {
+      const self = this;
+      apiUtilServices
+        .deleteRequest(`/deliveries/${delivery._id}`)
+        .then((res) => {
+          if (res.status === "success") {
+            self.initialize();
+            self.$toast.open({
+              type: "success",
+              message: res.message,
+            });
+          }
+        })
+        .catch((err) => {
+          self.$toast.open({
+            type: "error",
+            message: (err.response && err.response.data && err.response.data.message) || "Internal server error.",
+          });
+        });
+    },
   },
 };
 </script>

@@ -14,16 +14,16 @@
       <div class="w-[60%] mx-auto">
         <div class="flex justify-between gap-x-8">
           <div class="w-full bg-green-300 p-8 rounded">
-            <h3 class="text-center text-3xl font-bold mb-4">AED {{ totalIncome }}</h3>
-            <h2 class="font-semibold text-2xl text-center">Total Income</h2>
+            <h3 class="text-center text-2xl font-bold mb-4">AED {{ totalIncome }}</h3>
+            <h2 class="font-semibold text-xl text-center">Total Income</h2>
           </div>
           <div class="w-full bg-red-300 p-8 rounded">
-            <h3 class="text-center text-3xl font-bold mb-4">AED {{ totalExpense }}</h3>
-            <h2 class="font-semibold text-2xl text-center">Total Expense</h2>
+            <h3 class="text-center text-2xl font-bold mb-4">AED {{ totalExpense }}</h3>
+            <h2 class="font-semibold text-xl text-center">Total Expense</h2>
           </div>
           <div class="w-full p-8 rounded" :class="{ 'bg-red-300': netBalance < 0, 'bg-teal-300': netBalance > 0 }">
-            <h3 class="text-center text-3xl font-bold mb-4">AED {{ netBalance }}</h3>
-            <h2 class="font-semibold text-2xl text-center">Net Balance</h2>
+            <h3 class="text-center text-2xl font-bold mb-4">AED {{ netBalance }}</h3>
+            <h2 class="font-semibold text-xl text-center">Net Balance</h2>
           </div>
         </div>
         <hr class="my-4 h-1 bg-slate-300" />
@@ -58,8 +58,8 @@
                 </template>
               </p>
               <div>
-                <p class="font-semibold">AED {{ transaction.amount }}</p>
-                <p class="text-sm font-medium text-right">{{ formatDate(transaction.date) }}</p>
+                <p class="font-semibold text-white">AED {{ transaction.amount }}</p>
+                <p class="text-sm font-medium text-right text-white">{{ formatDate(transaction.date) }}</p>
               </div>
             </div>
           </template>

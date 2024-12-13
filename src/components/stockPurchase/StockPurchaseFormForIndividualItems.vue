@@ -87,7 +87,7 @@
           <button
             type="button"
             @change="onChangePurchasDetails"
-            class="border rounded bg-primary p-2 font-medium w-full"
+            class="border rounded bg-primary p-2 font-medium w-full text-white"
             @click="addNewItem"
           >
             Add new item

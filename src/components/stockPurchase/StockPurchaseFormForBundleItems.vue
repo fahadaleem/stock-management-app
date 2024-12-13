@@ -112,7 +112,11 @@
         </div>
 
         <div>
-          <button type="button" class="border rounded border-slate-600 p-2 font-medium w-full" @click="addNewItem">
+          <button
+            type="button"
+            class="border rounded border-slate-600 p-2 font-medium w-full text-white bg-primary"
+            @click="addNewItem"
+          >
             Add new item
           </button>
         </div>
