@@ -180,20 +180,24 @@ export default {
       self.items.splice(index, 1);
       self.onChangePurchasDetails();
     },
-    calculateMinMarketValueOfAllItems() {
+    calculateSubTotalOfAllItems() {
       const self = this;
-      // Use reduce to sum up the minMarketValue of all items
-      const totalMinMarketValue = self.items.reduce((total, item) => {
-        return total + (item.minMarketValue || 0); // Add the item's minMarketValue, defaulting to 0 if it's null or undefined
+      // Use reduce to sum up the subTotal of all items
+      const totalSubTotal = self.items.reduce((total, item) => {
+        const subTotalPerItem = (item.minMarketValue || 0) * item.quantity; // Default to 0 if minMarketValue is null or undefined
+        return total + subTotalPerItem; // Add the item's subTotal, defaulting to 0 if it's null or undefined
       }, 0); // Initial value of total is 0
 
-      return totalMinMarketValue;
+      return totalSubTotal;
     },
     calculateEstimatedCostPrice(item) {
       const self = this;
-      const constPriceOf1Item =
-        (item.minMarketValue / self.calculateMinMarketValueOfAllItems()) * self.totalBundleCostPrice;
-      item.costPrice = (constPriceOf1Item / item.quantity).toFixed(2);
+
+      const subTotalOfAllItems = self.calculateSubTotalOfAllItems();
+      const subTotalOfAnItem = item.minMarketValue * item.quantity;
+      const totalCostPriceOfItemInBundle = (subTotalOfAnItem / subTotalOfAllItems) * self.totalBundleCostPrice;
+      const totalCostPriceOfAnItem = totalCostPriceOfItemInBundle / item.quantity;
+      item.costPrice = Math.floor(totalCostPriceOfAnItem);
     },
     onChangeSupportedDocs(files) {
       const self = this;
